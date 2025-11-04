@@ -1,4 +1,4 @@
-import { DAYS_IN_WEAK, LAST_MONTH_INDEX } from "./assets/constants";
+import { DAYS_IN_WEAK, LAST_MONTH_INDEX, MONTH_LABELS, WEEK_DAYS } from "./assets/constants";
 import type { TCalendarDate } from "./types/Calendar";
 
 // Вспомогательная функция для заполнения дней из соседних месяцев
@@ -34,6 +34,7 @@ export class CalendarModel {
 	days: Array<Array<TCalendarDate>>; // основное поле - массив данных дней. Отображение по 7 дней в строке
 	currentMonth: number; // текущий месяц при переключении календаря
 	currentYear: number; // текущий год при переключении календаря
+	daysOrder: string[]; // порядок дней недели, начиная с 1-го дня в weekStartDay
 
 	constructor(date: string, weekStartDay: number) {
 		this.initDate = date;
@@ -46,11 +47,22 @@ export class CalendarModel {
 		
 		this.initCurrentDate(new Date(this.initDate));
 		this.fill();
+
+		this.daysOrder = [];
+		this.defineDaysOrder();
 	}
 
 	initCurrentDate(day: Date): void {
 		this.currentMonth = day.getMonth();
 		this.currentYear = day.getFullYear();
+	}
+
+	defineDaysOrder() {
+		this.daysOrder = [...WEEK_DAYS,...WEEK_DAYS].slice(this.weekStartDay, this.weekStartDay + DAYS_IN_WEAK);
+	}
+
+	getMonthLabel(month: number) {
+		return MONTH_LABELS[month];
 	}
 
 	// Проверка совпадения переданной даты с датой, указанной при инициализации
