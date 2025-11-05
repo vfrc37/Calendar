@@ -1,48 +1,24 @@
 # calendar
 
-This template should help get you started developing with Vue 3 in Vite.
+Компонент (виджет) календаря
 
-## Recommended IDE Setup
+- [DEMO](https://calendar-two-omega.vercel.app/)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Инициализируется 2мя полями:
+- date. Нужная дата в формате `'YYYY-MM-DD'`. По умолчанию, автоматически устанавливается текущая дата
+- locale. Нужная локализация. Поддерживаются 2 ключа: `'en'`, `'ru'`. Кроме текстовых констант выбор локализации определяет день начала недели
 
-## Recommended Browser Setup
+При выборе даты календарь **перелистывается** на нужный месяц. Выбранная дата выделяется синей рамкой. Также поддерживается обработчик выбора даты через событие `select-date`.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+В шапке есть кнопки переключения месяца
 
-## Type Support for `.vue` Imports in TS
+## Реализация
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+1. Модель календаря описана в классе CalendarModel
+2. Vue-компонент Calendar совмещает функции контроллера (управляет состоянием выбора даты, переключением месяца) и представления
+3. Модуль i18n содержит все текстовые константы
 
-## Customize configuration
+## Локальный запуск
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+1. `npm i`
+2. `npm run dev`
