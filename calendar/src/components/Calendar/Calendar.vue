@@ -34,7 +34,10 @@ export default {
       handler(value: string) {
         this.updateCalendar(value);
       },
-    }    
+    },
+    locale() {
+      this.updateCalendarLocale();
+    },      
   },  
   methods: {
     updateCalendar(value?: string) {
@@ -45,6 +48,10 @@ export default {
       }
       if (!this.selectedDate) return;
       this.calendar = new CalendarModel(this.selectedDate, this.$props.locale === 'en' ? 0 : 1);
+    },
+    updateCalendarLocale() {
+      if (!this.selectedDate) return;
+      this.calendar = new CalendarModel(this.selectedDate, this.$props.locale === 'en' ? 0 : 1);      
     },
     selectDate(day: number, month: number, year: number) {
       if (!this.calendar) return;

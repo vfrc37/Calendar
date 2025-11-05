@@ -19,7 +19,12 @@
             text: "1999/01/01", value: "1999-01-01", isCurrent: false
           }          
         ],
-        currentMockId: 0       
+        currentMockId: 0,
+        selectedLocale: 'en',
+        locales: [
+          { text: 'En', value: 'en' },
+          { text: 'Ru', value: 'ru' },
+        ]        
       }
     },
     methods: {
@@ -30,9 +35,6 @@
           this.currentMockId = id;
           this.dateMocks[id]!.isCurrent = true;
         }
-      },
-      handleSelectDate(date: string) {
-        console.log('App:selectDate', date);
       }
     },
     computed: {
@@ -48,9 +50,15 @@
   <button v-for="button, i in dateMocks" :key="`button-${i}`" :class="{ current: button.isCurrent }" @click="selectMock(i)">
     {{  button.text }}
   </button>
+  <span>  Locale: </span>
+  <select v-model="selectedLocale">
+    <option v-for="locale in locales" :value="locale.value" :key="locale.value">
+      {{ locale.text }}
+    </option>
+  </select>
   </div>
   <div class="calendar-wrapper">
-    <calendar-widget :date="currentDate" :locale="'en'" />
+    <calendar-widget :date="currentDate" :locale="selectedLocale"/>
   </div>
   
 </template>
