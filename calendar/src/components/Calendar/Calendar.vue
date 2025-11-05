@@ -1,5 +1,10 @@
 <template>
   <div class="wrapper">
+    <div class="head">
+      <div class="button button-back" @click="calendar?.switchPreviousMonth"><div class="button-arrow"></div></div>
+      <div>{{ title }}</div>
+      <div class="button button-forward" @click="calendar?.switchNextMonth"><div class="button-arrow"></div></div>
+    </div>
     <table>
       <tbody>
         <tr>
@@ -71,6 +76,9 @@ export default {
     },
     getDayName(dayLabel: string) {
       return i18n(dayLabel, this.$props.locale ?? '');
+    },
+    getMonthName(monthLabel: string) {
+      return i18n(monthLabel, this.$props.locale ?? '');
     }
   },
   created() {
@@ -78,6 +86,11 @@ export default {
     this.updateCalendar(this.$props.date ?? this.todayDate);
   },
   computed: {
+    title() {
+      if (!this.calendar) return '';
+      const monthLabel = this.calendar.getMonthLabel(this.calendar.currentMonth) ?? '';
+      return `${this.getMonthName(monthLabel)} ${this.calendar.currentYear}`
+    },
     todayDate() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
@@ -117,5 +130,41 @@ export default {
     &:not(.current-month) {
       color: $color-inactive;
     }
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    font-size: 1.1em;
+  }
+
+  .button {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+
+  .button-back .button-arrow {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 14px solid black;
+  }
+  .button-back:hover .button-arrow {
+    border-right-color: $color-active;
+  }
+
+  .button-forward .button-arrow {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 14px solid black;
+  }
+  .button-forward:hover .button-arrow  {
+    border-left-color: $color-active;
   }
 </style>

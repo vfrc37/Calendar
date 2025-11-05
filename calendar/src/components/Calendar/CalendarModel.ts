@@ -125,6 +125,20 @@ export class CalendarModel {
 		}
 	}
 
+	switchNextMonth(): void {
+		const { month, year } = getNextMonthAndYear(this.currentMonth, this.currentYear);
+		this.currentMonth = month;
+		this.currentYear = year;
+		this.fill();
+	}
+
+	switchPreviousMonth(): void {
+		const { month, year } = getPreviousMonthAndYear(this.currentMonth, this.currentYear);
+		this.currentMonth = month;
+		this.currentYear = year;
+		this.fill();    
+	}
+
 	reset(): void {
 		this.initCurrentDate(new Date(this.initDate));
 		this.fill();
