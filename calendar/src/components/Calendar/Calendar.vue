@@ -3,7 +3,7 @@
     <table>
       <tbody>
         <tr>
-          <th v-for="label in calendar?.daysOrder" :key="label">{{ label }}</th>
+          <th v-for="label in calendar?.daysOrder" :key="label">{{ getDayName(label) }}</th>
         </tr>
         <tr v-for="week, i in calendar?.days" :key="i">
           <th v-for="day, j in week" :key="j" :class="{ 'current-date': checkCurrentDay(day), 'current-month': checkCurrentMonth(day), date: true }" @click="selectDate(day.day, day.month, day.year)">{{ day.day }}</th>
@@ -16,6 +16,7 @@
 <script lang="ts">
 
 import { CalendarModel } from './CalendarModel';
+import { i18n } from './i18n/calendar';
 import type { TCalendarDate } from './types/Calendar';
 
 export default {
@@ -68,6 +69,9 @@ export default {
       const selDate = new Date(this.selectedDate)
       return selDate.getDate() === day.day && selDate.getMonth() === day.month && selDate.getFullYear() === day.year;
     },
+    getDayName(dayLabel: string) {
+      return i18n(dayLabel, this.$props.locale ?? '');
+    }
   },
   created() {
     // первая инициализация. если дата не передана, используется текущая дата
