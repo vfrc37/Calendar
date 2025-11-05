@@ -64,6 +64,7 @@ export default {
       if (!this.calendar) return;
       const selectedValue = `${year}-${month + 1}-${day}`;
       this.updateCalendar(selectedValue);
+      this.$emit('selectDate', selectedValue);
     },
     checkCurrentMonth(day: TCalendarDate) {
       if (!this.selectedDate) return false;

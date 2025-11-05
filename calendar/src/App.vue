@@ -35,6 +35,9 @@
           this.currentMockId = id;
           this.dateMocks[id]!.isCurrent = true;
         }
+      },
+      handleSelectDate(date: string) {
+        console.log('App:selectDate', date);
       }
     },
     computed: {
@@ -58,7 +61,7 @@
   </select>
   </div>
   <div class="calendar-wrapper">
-    <calendar-widget :date="currentDate" :locale="selectedLocale"/>
+    <calendar-widget :date="currentDate" :locale="selectedLocale" @select-date="handleSelectDate"/>
   </div>
   
 </template>
